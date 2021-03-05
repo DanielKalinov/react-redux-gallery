@@ -1,0 +1,30 @@
+@import '../../index.scss';
+
+.header {
+	padding: 10px;
+	background-color: #fafafa;
+	box-shadow: 0 0 10px rgba($color: black, $alpha: 0.2);
+
+	.header-container {
+		margin: auto;
+		display: flex;
+		justify-content: space-between;
+		max-width: 960px;
+
+		a {
+			display: inline-block;
+			padding: 10px;
+			color: #212121;
+			text-decoration: none;
+		}
+
+		.header-left {
+		}
+
+		.header-right {
+			> *:not(:last-child) {
+				margin-right: 10px;
+			}
+		}
+	}
+}

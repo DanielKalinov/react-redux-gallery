@@ -10,7 +10,7 @@ app.use(passport.initialize());
 require('./config/passport')(passport);
 
 const MONGODB_CONNECTION =
-	'mongodb+srv://daniel:Xov9gsC7bIRERymc@cluster0.8uos6.mongodb.net/ReactPractice?retryWrites=true&w=majority';
+	'mongodb+srv://daniel:Xov9gsC7bIRERymc@cluster0.8uos6.mongodb.net/ReactReduxGallery?retryWrites=true&w=majority';
 
 mongoose.connect(
 	MONGODB_CONNECTION,
