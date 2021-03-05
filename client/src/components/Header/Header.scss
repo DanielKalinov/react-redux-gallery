@@ -18,10 +18,8 @@
 			text-decoration: none;
 		}
 
+		.header-right,
 		.header-left {
-		}
-
-		.header-right {
 			> *:not(:last-child) {
 				margin-right: 10px;
 			}

@@ -16,6 +16,7 @@ body {
 
 .button {
 	display: inline-block;
+	border: none;
 	border-radius: 6px;
 	padding: 10px 20px !important;
 	font-size: 14px !important;
@@ -35,4 +36,50 @@ body {
 .secondary-button {
 	box-shadow: 0 0 0 1px $primary;
 	color: $primary !important;
+}
+
+.form {
+	display: flex;
+	flex-direction: column;
+	margin: 200px auto;
+	border-radius: 6px;
+	padding: 20px;
+	max-width: 300px;
+	background-color: #fafafa;
+	box-shadow: 0 0 10px rgba($color: black, $alpha: 0.2);
+
+	h2 {
+		margin-bottom: 40px;
+	}
+
+	.form-group {
+		display: flex;
+		flex-direction: column;
+		margin-bottom: 20px;
+
+		label {
+			margin-bottom: 4px;
+		}
+	}
+}
+
+.input {
+	border: solid 1px #e0e0e0;
+	border-radius: 6px;
+	padding: 10px;
+	background: none;
+	outline: none;
+	transition: all 0.2s ease-in-out;
+
+	&:hover {
+		background-color: #eeeeee;
+	}
+
+	&:focus {
+		box-shadow: 0 0 0 2px $primary;
+
+		&:hover {
+			background: none;
+		}
+	}
 }
