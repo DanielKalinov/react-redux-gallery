@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap');
 
 $primary: #26a69a;
+$danger: #e91e63;
 
 * {
 	margin: 0;
@@ -31,6 +32,9 @@ body {
 	&:hover {
 		background-color: lighten($color: $primary, $amount: 5);
 	}
+	&:disabled {
+		background-color: rgba($color: $primary, $alpha: 0.2);
+	}
 }
 
 .secondary-button {
@@ -59,6 +63,11 @@ body {
 
 		label {
 			margin-bottom: 4px;
+		}
+
+		.form-error-message {
+			margin-top: 4px;
+			color: $danger !important;
 		}
 	}
 }
