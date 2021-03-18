@@ -33,8 +33,8 @@ const localStrategy = new LocalStrategy(
 );
 
 const jwtStrategy = new JwtStrategy(options, async (payload, done) => {
-	const user = await User.findOne({ _id: payload.id });
 	try {
+		const user = await User.findOne({ _id: payload.userId });
 		if (user) {
 			done(null, user);
 		} else {

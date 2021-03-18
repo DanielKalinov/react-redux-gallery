@@ -1,12 +1,12 @@
 import './Header.scss';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route, Link } from 'react-router-dom';
 import Login from '../pages/Login.jsx';
 import Signup from '../pages/Signup.jsx';
 import Home from '../pages/Home.jsx';
 
 const Header = () => {
 	return (
-		<Router>
+		<div>
 			<div className='header'>
 				<div className='header-container'>
 					<div className='header-left'>
@@ -23,17 +23,11 @@ const Header = () => {
 				</div>
 			</div>
 			<Switch>
-				<Route path='/login'>
-					<Login />
-				</Route>
-				<Route path='/signup'>
-					<Signup />
-				</Route>
-				<Route path='/'>
-					<Home />
-				</Route>
+				<Route path='/login' component={Login}></Route>
+				<Route path='/signup' component={Signup}></Route>
+				<Route path='/' component={Home}></Route>
 			</Switch>
-		</Router>
+		</div>
 	);
 };
 
