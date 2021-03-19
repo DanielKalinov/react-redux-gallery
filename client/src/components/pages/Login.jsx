@@ -21,7 +21,7 @@ const Login = () => {
 	});
 
 	const onSubmit = (values, onSubmitProps) => {
-		dispatch(logIn(values)).then(() => history.push('/'));
+		dispatch(logIn(values)).then(() => history.replace('/'));
 		onSubmitProps.resetForm();
 	};
 

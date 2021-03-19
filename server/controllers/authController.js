@@ -1,6 +1,5 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
-const passport = require('passport');
 const jwt = require('jsonwebtoken');
 
 module.exports.signUp = async (req, res) => {
@@ -39,6 +38,11 @@ module.exports.logIn = (req, res) => {
 	);
 
 	return res.status(200).json({ token, userData });
+};
+
+module.exports.logOut = (req, res) => {
+	req.logOut();
+	res.sendStatus(200);
 };
 
 module.exports.getUserData = (req, res) => {

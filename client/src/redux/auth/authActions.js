@@ -7,7 +7,6 @@ import {
 	LOGIN_FAILURE,
 	LOGOUT_REQUEST,
 	LOGOUT_SUCCESS,
-	LOGOUT_FAILURE,
 	GET_USER_DATA_REQUEST,
 	GET_USER_DATA_SUCCESS,
 	GET_USER_DATA_FAILURE
@@ -67,11 +66,11 @@ export const logOut = () => {
 			axios
 				.post('http://localhost:3000/logout')
 				.then(() => {
+					localStorage.removeItem('token');
 					dispatch(logoutSuccess());
+					resolve();
 				})
-				.catch(() => {
-					dispatch(loginFailure());
-				});
+				.catch((err) => console.log(err));
 		});
 	};
 };
@@ -147,12 +146,6 @@ export const logoutRequest = () => {
 export const logoutSuccess = () => {
 	return {
 		type: LOGOUT_SUCCESS
-	};
-};
-
-export const logoutFailure = () => {
-	return {
-		type: LOGOUT_FAILURE
 	};
 };
 

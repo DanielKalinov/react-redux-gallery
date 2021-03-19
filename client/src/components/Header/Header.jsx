@@ -6,10 +6,16 @@ import Signup from '../pages/Signup.jsx';
 import Home from '../pages/Home.jsx';
 import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from '../../redux/auth/authActions';
+import { useHistory } from 'react-router-dom';
 
 const Header = () => {
 	const { isAuthenticated } = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
+	const history = useHistory();
+
+	const onLogout = () => {
+		dispatch(logOut()).then(() => history.replace('/'));
+	};
 
 	return (
 		<div>
@@ -29,9 +35,7 @@ const Header = () => {
 								</Link>
 							</Fragment>
 						) : (
-							<button
-								className='button secondary-button'
-								onClick={() => dispatch(logOut())}>
+							<button className='button secondary-button' onClick={onLogout}>
 								Log Out
 							</button>
 						)}
