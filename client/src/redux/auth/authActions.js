@@ -5,6 +5,9 @@ import {
 	LOGIN_REQUEST,
 	LOGIN_SUCCESS,
 	LOGIN_FAILURE,
+	LOGOUT_REQUEST,
+	LOGOUT_SUCCESS,
+	LOGOUT_FAILURE,
 	GET_USER_DATA_REQUEST,
 	GET_USER_DATA_SUCCESS,
 	GET_USER_DATA_FAILURE
@@ -51,6 +54,23 @@ export const logIn = (values) => {
 					} else {
 						dispatch(loginFailure('Something went wrong'));
 					}
+				});
+		});
+	};
+};
+
+export const logOut = () => {
+	return (dispatch) => {
+		dispatch(logoutRequest());
+
+		return new Promise((resolve) => {
+			axios
+				.post('http://localhost:3000/logout')
+				.then(() => {
+					dispatch(logoutSuccess());
+				})
+				.catch(() => {
+					dispatch(loginFailure());
 				});
 		});
 	};
@@ -115,6 +135,24 @@ export const loginFailure = (err) => {
 	return {
 		type: LOGIN_FAILURE,
 		payload: err
+	};
+};
+
+export const logoutRequest = () => {
+	return {
+		type: LOGOUT_REQUEST
+	};
+};
+
+export const logoutSuccess = () => {
+	return {
+		type: LOGOUT_SUCCESS
+	};
+};
+
+export const logoutFailure = () => {
+	return {
+		type: LOGOUT_FAILURE
 	};
 };
 

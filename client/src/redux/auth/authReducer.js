@@ -5,6 +5,9 @@ import {
 	LOGIN_REQUEST,
 	LOGIN_SUCCESS,
 	LOGIN_FAILURE,
+	LOGOUT_REQUEST,
+	LOGOUT_SUCCESS,
+	LOGOUT_FAILURE,
 	GET_USER_DATA_REQUEST,
 	GET_USER_DATA_SUCCESS,
 	GET_USER_DATA_FAILURE
@@ -42,15 +45,34 @@ export default function reducer(state = initialState, action) {
 		case LOGIN_FAILURE: {
 			return { ...state, loading: false, err: action.payload };
 		}
+		case LOGOUT_REQUEST: {
+			return { ...state, loading: true };
+		}
+		case LOGOUT_SUCCESS: {
+			return {
+				...state,
+				isAuthenticated: false,
+				userData: null,
+				loading: false
+			};
+		}
+		case LOGOUT_FAILURE: {
+			return {
+				...state,
+				isAuthenticated: false,
+				userData: null,
+				loading: false
+			};
+		}
 		case GET_USER_DATA_REQUEST: {
 			return { ...state, loading: true };
 		}
 		case GET_USER_DATA_SUCCESS: {
 			return {
+				...state,
 				isAuthenticated: true,
 				userData: action.payload,
-				loading: false,
-				err: null
+				loading: false
 			};
 		}
 		case GET_USER_DATA_FAILURE: {
