@@ -1,15 +1,12 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import './Header.scss';
-import { Switch, Route, Link } from 'react-router-dom';
-import Login from '../pages/Login.jsx';
-import Signup from '../pages/Signup.jsx';
-import Home from '../pages/Home.jsx';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from '../../redux/auth/authActions';
 import { useHistory } from 'react-router-dom';
 
 const Header = () => {
-	const { isAuthenticated } = useSelector((state) => state.auth);
+	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 	const history = useHistory();
 
@@ -23,30 +20,18 @@ const Header = () => {
 				<div className='header-container'>
 					<div className='header-left'>
 						<Link to='/'>Home</Link>
+						<Link to='/upload'>Upload</Link>
 					</div>
 					<div className='header-right'>
-						{!isAuthenticated ? (
-							<Fragment>
-								<Link to='/signup' className='button primary-button'>
-									Sign Up
-								</Link>
-								<Link to='/login' className='button secondary-button'>
-									Log In
-								</Link>
-							</Fragment>
-						) : (
-							<button className='button secondary-button' onClick={onLogout}>
-								Log Out
-							</button>
-						)}
+						<span className='header-right-username'>
+							{auth.userData.username}
+						</span>
+						<button className='button secondary-button' onClick={onLogout}>
+							Log Out
+						</button>
 					</div>
 				</div>
 			</div>
-			<Switch>
-				<Route path='/login' component={Login}></Route>
-				<Route path='/signup' component={Signup}></Route>
-				<Route path='/' component={Home}></Route>
-			</Switch>
 		</div>
 	);
 };

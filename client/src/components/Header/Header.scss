@@ -9,7 +9,6 @@
 		margin: auto;
 		display: flex;
 		justify-content: space-between;
-		max-width: 960px;
 
 		a {
 			display: inline-block;
@@ -22,6 +21,13 @@
 		.header-left {
 			> *:not(:last-child) {
 				margin-right: 10px;
+			}
+		}
+
+		.header-right {
+			.header-right-username {
+				margin-right: 10px;
+				font-weight: 700;
 			}
 		}
 	}

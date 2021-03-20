@@ -23,6 +23,7 @@ body {
 	background: none;
 	font-size: 14px !important;
 	cursor: pointer;
+	text-decoration: none;
 	transition: all 0.2s ease-in-out;
 }
 
@@ -69,6 +70,14 @@ body {
 		.form-error-message {
 			margin-top: 4px;
 			color: $danger !important;
+		}
+	}
+
+	.form-help {
+		margin-bottom: 20px;
+
+		a {
+			color: $primary !important;
 		}
 	}
 }
