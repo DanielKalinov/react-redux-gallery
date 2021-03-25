@@ -9,10 +9,19 @@ import HomePage from './components/pages/HomePage.jsx';
 import LoginPage from './components/pages/LoginPage.jsx';
 import SignupPage from './components/pages/SignupPage.jsx';
 import UploadPage from './components/pages/UploadPage/UploadPage.jsx';
+import axios from 'axios';
 
 const App = () => {
 	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
+
+	useEffect(() => {
+		axios.get('http://localhost:3000/post/currentuserposts', {
+			headers: {
+				Authorization: `Bearer ${localStorage.getItem('token')}`
+			}
+		})
+	}, [])
 
 	useEffect(() => {
 		dispatch(getUserData());
@@ -27,7 +36,7 @@ const App = () => {
 			)}
 			{auth.isAuthenticated && <Header />}
 			<Switch>
-				<Route exact path='/' component={LandingPage}>
+				<Route exact path='/'>
 					{auth.isAuthenticated ? <Redirect to='/home' /> : <LandingPage />}
 				</Route>
 				<Route path='/home' component={HomePage} />

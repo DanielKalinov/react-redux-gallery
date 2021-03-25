@@ -1,11 +1,12 @@
 import React, { useState, useRef } from 'react';
 import './UploadPage.scss';
 import { useSelector, useDispatch } from 'react-redux';
+import { postUpload } from '../../../redux/post/postActions';
 import { useHistory } from 'react-router-dom';
-import axios from 'axios';
 
 const UploadPage = () => {
 	const [image, setImage] = useState('');
+	const [objectURL, setObjectURL] = useState('');
 
 	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
@@ -18,12 +19,16 @@ const UploadPage = () => {
 	};
 
 	const handleFileChange = (e) => {
-		setImage(URL.createObjectURL(e.target.files[0]));
+		if (e.target.files.length > 0) {
+			setImage(e.target.files[0]);
+			setObjectURL(URL.createObjectURL(e.target.files[0]));
+		}
 	};
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		axios.post('http://localhost:3000/post/upload');
+
+		dispatch(postUpload(image)).then(() => history.replace('/'));
 	};
 
 	return (
@@ -40,14 +45,6 @@ const UploadPage = () => {
 						<div className='image-preview-empty-actions'>
 							<i className='material-icons'>wallpaper</i>
 							<span>No file chosen</span>
-							<input
-								type='file'
-								name='files'
-								accept='image/*'
-								ref={inputRef}
-								value={image}
-								onChange={handleFileChange}
-							/>
 							<button
 								className='button secondary-button'
 								onClick={handleBrowseClick}>
@@ -57,10 +54,18 @@ const UploadPage = () => {
 					</div>
 				) : (
 					<div className='image-preview'>
-						<img src={image} />
+						<img src={objectURL} />
+						<i className='material-icons' onClick={handleBrowseClick}>
+							camera_alt
+						</i>
 					</div>
 				)}
-
+				<input
+					type='file'
+					accept='image/*'
+					onChange={handleFileChange}
+					ref={inputRef}
+				/>
 				<button className='button primary-button' onClick={handleSubmit}>
 					Upload
 				</button>

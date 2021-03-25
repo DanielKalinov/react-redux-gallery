@@ -27,18 +27,42 @@
 		}
 
 		.image-preview {
+			display: flex;
+			align-items: center;
+			justify-content: center;
 			margin-bottom: 20px;
 			height: 400px;
+
+			&:hover {
+				i {
+					opacity: 1;
+				}
+			}
 
 			img {
 				height: 400px;
 				width: 100%;
 				object-fit: scale-down;
 			}
-		}
-	}
 
-	input {
-		display: none;
+			i {
+				position: absolute;
+				opacity: 0;
+				border-radius: 6px;
+				padding: 20px;
+				background-color: rgba($color: white, $alpha: 0.8);
+				font-size: 48px;
+				transition: all 0.2s ease-in-out;
+				cursor: pointer;
+
+				&:hover {
+					transform: scale(1.2);
+				}
+			}
+		}
+
+		input {
+			display: none;
+		}
 	}
 }
