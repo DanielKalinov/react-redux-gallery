@@ -1,5 +1,7 @@
 const Post = require('../models/post');
 const User = require('../models/user');
+const path = require('path');
+const mongoose = require('mongoose');
 
 module.exports.upload = async (req, res) => {
 	const newPost = await Post.create({ src: req.file.path });
@@ -11,9 +13,16 @@ module.exports.upload = async (req, res) => {
 };
 
 module.exports.getMyPosts = async (req, res) => {
-	User.findOne({ _id: req.user._id })
-		.populate('posts')
-		.then((user) => {
-			res.status(200).json(user.posts);
-		});
+	const user = await User.findOne({ _id: req.user._id }).populate('posts', {
+		src: 0,
+		__v: 0,
+	});
+	res.status(200).json({ myPosts: user.posts });
+};
+
+module.exports.sendImage = async (req, res) => {
+	const post = await Post.findById({
+		_id: mongoose.Types.ObjectId(req.params.id),
+	});
+	res.sendFile(path.join(__dirname, `../${post.src}`));
 };

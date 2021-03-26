@@ -1,6 +1,10 @@
 const { Router } = require('express');
 const passport = require('passport');
-const { upload, getMyPosts } = require('../controllers/postController');
+const {
+	upload,
+	getMyPosts,
+	sendImage,
+} = require('../controllers/postController');
 const uploadFile = require('../config/multer');
 
 const router = Router();
@@ -16,5 +20,7 @@ router.get(
 	passport.authenticate('jwt', { session: false }),
 	getMyPosts
 );
+
+router.get('/post/myposts/:id', sendImage);
 
 module.exports = router;

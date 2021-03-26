@@ -21,6 +21,7 @@ const Header = () => {
 					<div className='header-left'>
 						<Link to='/'>Home</Link>
 						<Link to='/upload'>Upload</Link>
+						<Link to='/myposts'>My Posts</Link>
 					</div>
 					<div className='header-right'>
 						<span className='header-right-username'>

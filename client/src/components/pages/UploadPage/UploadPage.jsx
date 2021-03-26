@@ -8,7 +8,7 @@ const UploadPage = () => {
 	const [image, setImage] = useState('');
 	const [objectURL, setObjectURL] = useState('');
 
-	const auth = useSelector((state) => state.auth);
+	const post = useSelector((state) => state.post);
 	const dispatch = useDispatch();
 	const history = useHistory();
 	const inputRef = useRef('inputRef');
@@ -33,13 +33,14 @@ const UploadPage = () => {
 
 	return (
 		<div className='upload-page'>
-			{auth.loading ? (
+			{post.loading ? (
 				<div className='loading-overlay'>
 					<div className='spinner'></div>
 				</div>
 			) : null}
 			<form className='form'>
 				<h2>Upload an Image</h2>
+				{post.err ? <div className='server-err-box'>{post.err}</div> : null}
 				{!image ? (
 					<div className='image-preview-empty'>
 						<div className='image-preview-empty-actions'>
@@ -54,7 +55,7 @@ const UploadPage = () => {
 					</div>
 				) : (
 					<div className='image-preview'>
-						<img src={objectURL} />
+						<img src={objectURL} alt='' />
 						<i className='material-icons' onClick={handleBrowseClick}>
 							camera_alt
 						</i>
@@ -66,7 +67,10 @@ const UploadPage = () => {
 					onChange={handleFileChange}
 					ref={inputRef}
 				/>
-				<button className='button primary-button' onClick={handleSubmit}>
+				<button
+					disabled={image ? false : true}
+					className='button primary-button'
+					onClick={handleSubmit}>
 					Upload
 				</button>
 			</form>

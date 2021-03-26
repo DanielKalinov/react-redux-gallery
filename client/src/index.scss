@@ -36,6 +36,7 @@ body {
 	}
 	&:disabled {
 		background-color: rgba($color: $primary, $alpha: 0.2);
+		cursor: initial;
 	}
 }
 

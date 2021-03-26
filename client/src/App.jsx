@@ -9,19 +9,13 @@ import HomePage from './components/pages/HomePage.jsx';
 import LoginPage from './components/pages/LoginPage.jsx';
 import SignupPage from './components/pages/SignupPage.jsx';
 import UploadPage from './components/pages/UploadPage/UploadPage.jsx';
-import axios from 'axios';
+import MyPostsPage from './components/pages/MyPostsPage/MyPostsPage.jsx';
 
 const App = () => {
 	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
 
-	useEffect(() => {
-		axios.get('http://localhost:3000/post/currentuserposts', {
-			headers: {
-				Authorization: `Bearer ${localStorage.getItem('token')}`
-			}
-		})
-	}, [])
+	useEffect(() => {}, []);
 
 	useEffect(() => {
 		dispatch(getUserData());
@@ -43,6 +37,7 @@ const App = () => {
 				<Route path='/signup' component={SignupPage} />
 				<Route path='/login' component={LoginPage} />
 				<Route path='/upload' component={UploadPage} />
+				<Route path='/myposts' component={MyPostsPage} />
 			</Switch>
 		</div>
 	);
