@@ -6,12 +6,12 @@ const bcrypt = require('bcrypt');
 
 const options = {
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-	secretOrKey: 'secret'
+	secretOrKey: 'secret',
 };
 
 const localStrategy = new LocalStrategy(
 	{
-		usernameField: 'email'
+		usernameField: 'email',
 	},
 	async (email, password, done) => {
 		try {

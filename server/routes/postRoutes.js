@@ -1,9 +1,6 @@
 const { Router } = require('express');
 const passport = require('passport');
-const {
-	upload,
-	getCurrentUserPosts,
-} = require('../controllers/postController');
+const { upload, getMyPosts } = require('../controllers/postController');
 const uploadFile = require('../config/multer');
 
 const router = Router();
@@ -15,9 +12,9 @@ router.post(
 );
 
 router.get(
-	'/post/currentuserposts',
+	'/post/myposts',
 	passport.authenticate('jwt', { session: false }),
-	getCurrentUserPosts
+	getMyPosts
 );
 
 module.exports = router;
