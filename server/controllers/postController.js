@@ -12,6 +12,11 @@ module.exports.upload = async (req, res) => {
 	res.sendStatus(200);
 };
 
+module.exports.getAllPosts = async (req, res) => {
+	const allPosts = await Post.find({}, { src: 0, __v: 0 });
+	res.status(200).json({ allPosts });
+};
+
 module.exports.getMyPosts = async (req, res) => {
 	const user = await User.findOne({ _id: req.user._id }).populate('posts', {
 		src: 0,

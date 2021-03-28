@@ -15,22 +15,20 @@ const Header = () => {
 	};
 
 	return (
-		<div>
-			<div className='header'>
-				<div className='header-container'>
-					<div className='header-left'>
-						<Link to='/'>Home</Link>
-						<Link to='/upload'>Upload</Link>
-						<Link to='/myposts'>My Posts</Link>
-					</div>
-					<div className='header-right'>
-						<span className='header-right-username'>
-							{auth.userData.username}
-						</span>
-						<button className='button secondary-button' onClick={onLogout}>
-							Log Out
-						</button>
-					</div>
+		<div className='header'>
+			<div className='header-container'>
+				<div className='header-left'>
+					<Link to='/'>Home</Link>
+					<Link to='/upload'>Upload</Link>
+					<Link to='/myposts'>My Posts</Link>
+				</div>
+				<div className='header-right'>
+					<span className='header-right-username'>
+						{auth.userData.username}
+					</span>
+					<button className='button secondary-button' onClick={onLogout}>
+						Log Out
+					</button>
 				</div>
 			</div>
 		</div>

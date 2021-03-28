@@ -2,10 +2,15 @@ import {
 	POST_UPLOAD_REQUEST,
 	POST_UPLOAD_SUCCESS,
 	POST_UPLOAD_FAILURE,
+	GET_ALL_POSTS_REQUEST,
+	GET_ALL_POSTS_SUCCESS,
+	GET_MY_POSTS_REQUEST,
 	GET_MY_POSTS_SUCCESS,
+	GET_MY_POSTS_FAILURE,
 } from '../post/postTypes';
 
 const initialState = {
+	allPosts: null,
 	myPosts: null,
 	loading: false,
 	err: null,
@@ -22,8 +27,20 @@ const postReducer = (state = initialState, action) => {
 		case POST_UPLOAD_FAILURE: {
 			return { ...state, loading: false, err: action.payload };
 		}
+		case GET_ALL_POSTS_REQUEST: {
+			return { ...state, allPosts: action.payload, loading: true };
+		}
+		case GET_ALL_POSTS_SUCCESS: {
+			return { ...state, allPosts: action.payload, loading: false };
+		}
+		case GET_MY_POSTS_REQUEST: {
+			return { ...state, loading: true };
+		}
 		case GET_MY_POSTS_SUCCESS: {
-			return { ...state, myPosts: action.payload };
+			return { ...state, myPosts: action.payload, loading: false };
+		}
+		case GET_MY_POSTS_FAILURE: {
+			return { ...state, loading: false };
 		}
 		default: {
 			return state;

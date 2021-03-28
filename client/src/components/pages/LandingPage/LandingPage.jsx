@@ -1,4 +1,5 @@
 import React from 'react';
+import './LandingPage.scss';
 import { Link } from 'react-router-dom';
 import './LandingPage.scss';
 

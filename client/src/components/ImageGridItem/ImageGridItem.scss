@@ -1,0 +1,11 @@
+.image-grid-item {
+	cursor: pointer;
+
+	img {
+		display: block;
+		border-radius: 6px;
+		width: 100%;
+		height: 300px;
+		object-fit: cover;
+	}
+}

@@ -1,6 +1,8 @@
 @import '../../index.scss';
 
 .header {
+	position: fixed;
+	width: 100%;
 	padding: 10px;
 	background-color: #fafafa;
 	box-shadow: 0 0 10px rgba($color: black, $alpha: 0.2);

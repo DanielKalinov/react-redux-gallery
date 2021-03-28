@@ -1,21 +1,19 @@
 import './App.scss';
-import { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getUserData } from './redux/auth/authActions';
 import { Switch, Route, Redirect } from 'react-router';
 import Header from './components/Header/Header.jsx';
 import LandingPage from './components/pages/LandingPage/LandingPage.jsx';
-import HomePage from './components/pages/HomePage.jsx';
-import LoginPage from './components/pages/LoginPage.jsx';
-import SignupPage from './components/pages/SignupPage.jsx';
+import HomePage from './components/pages/HomePage/HomePage.jsx';
+import LoginPage from './components/pages/LoginPage/LoginPage.jsx';
+import SignupPage from './components/pages/SignupPage/SignupPage.jsx';
 import UploadPage from './components/pages/UploadPage/UploadPage.jsx';
 import MyPostsPage from './components/pages/MyPostsPage/MyPostsPage.jsx';
 
 const App = () => {
 	const auth = useSelector((state) => state.auth);
 	const dispatch = useDispatch();
-
-	useEffect(() => {}, []);
 
 	useEffect(() => {
 		dispatch(getUserData());
@@ -28,7 +26,12 @@ const App = () => {
 					<div className='spinner'></div>
 				</div>
 			)}
-			{auth.isAuthenticated && <Header />}
+			{auth.isAuthenticated && (
+				<Fragment>
+					<Header />
+					<div className='header-offset' style={{ height: '59px' }}></div>
+				</Fragment>
+			)}
 			<Switch>
 				<Route exact path='/'>
 					{auth.isAuthenticated ? <Redirect to='/home' /> : <LandingPage />}

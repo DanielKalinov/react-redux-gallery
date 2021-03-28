@@ -2,6 +2,7 @@ const { Router } = require('express');
 const passport = require('passport');
 const {
 	upload,
+	getAllPosts,
 	getMyPosts,
 	sendImage,
 } = require('../controllers/postController');
@@ -15,12 +16,14 @@ router.post(
 	upload
 );
 
+router.get('/post/allposts', getAllPosts);
+
 router.get(
 	'/post/myposts',
 	passport.authenticate('jwt', { session: false }),
 	getMyPosts
 );
 
-router.get('/post/myposts/:id', sendImage);
+router.get('/post/:id', sendImage);
 
 module.exports = router;
