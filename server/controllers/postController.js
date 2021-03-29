@@ -13,14 +13,15 @@ module.exports.upload = async (req, res) => {
 };
 
 module.exports.getAllPosts = async (req, res) => {
-	const allPosts = await Post.find({}, { src: 0, __v: 0 });
+	const allPosts = await Post.find({}, { src: 0, __v: 0 }).sort({ _id: -1 });
 	res.status(200).json({ allPosts });
 };
 
 module.exports.getMyPosts = async (req, res) => {
-	const user = await User.findOne({ _id: req.user._id }).populate('posts', {
-		src: 0,
-		__v: 0,
+	const user = await User.findOne({ _id: req.user._id }).populate({
+		path: 'posts',
+		select: '_id',
+		options: { sort: { _id: -1 } },
 	});
 	res.status(200).json({ myPosts: user.posts });
 };
