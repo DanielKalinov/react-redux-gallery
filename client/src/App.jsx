@@ -30,18 +30,18 @@ const App = () => {
 				<Fragment>
 					<Header />
 					<div className='header-offset' style={{ height: '59px' }}></div>
+					<Switch>
+						<Route exact path='/'>
+							{auth.isAuthenticated ? <Redirect to='/home' /> : <LandingPage />}
+						</Route>
+						<Route path='/home' component={HomePage} />
+						<Route path='/signup' component={SignupPage} />
+						<Route path='/login' component={LoginPage} />
+						<Route path='/upload' component={UploadPage} />
+						<Route path='/myposts' component={MyPostsPage} />
+					</Switch>
 				</Fragment>
 			)}
-			<Switch>
-				<Route exact path='/'>
-					{auth.isAuthenticated ? <Redirect to='/home' /> : <LandingPage />}
-				</Route>
-				<Route path='/home' component={HomePage} />
-				<Route path='/signup' component={SignupPage} />
-				<Route path='/login' component={LoginPage} />
-				<Route path='/upload' component={UploadPage} />
-				<Route path='/myposts' component={MyPostsPage} />
-			</Switch>
 		</div>
 	);
 };
