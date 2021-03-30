@@ -5,6 +5,7 @@ const {
 	getAllPosts,
 	getMyPosts,
 	sendImage,
+	favoritePost,
 } = require('../controllers/postController');
 const uploadFile = require('../config/multer');
 
@@ -15,15 +16,17 @@ router.post(
 	uploadFile,
 	upload
 );
-
 router.get('/post/allposts', getAllPosts);
-
 router.get(
 	'/post/myposts',
 	passport.authenticate('jwt', { session: false }),
 	getMyPosts
 );
-
 router.get('/post/:id', sendImage);
+router.put(
+	'/post/favoritepost/:id',
+	passport.authenticate('jwt', { session: false }),
+	favoritePost
+);
 
 module.exports = router;

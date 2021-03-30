@@ -65,6 +65,20 @@ export const getMyPosts = () => {
 	};
 };
 
+export const favoritePost = (id) => {
+	return (dispatch) => {
+		axios.put(
+			`http://localhost:3000/post/favoritepost/${id}`,
+			{},
+			{
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('token')}`,
+				},
+			}
+		);
+	};
+};
+
 export const postUploadRequest = () => {
 	return {
 		type: POST_UPLOAD_REQUEST,
