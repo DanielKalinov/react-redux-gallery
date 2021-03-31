@@ -27,6 +27,9 @@ const Header = () => {
 					<NavLink activeClassName='header-left-active' exact to='/myposts'>
 						My Posts
 					</NavLink>
+					<NavLink activeClassName='header-left-active' exact to='/favorites'>
+						Favorites
+					</NavLink>
 				</div>
 				<div className='header-right'>
 					<span className='header-right-username'>

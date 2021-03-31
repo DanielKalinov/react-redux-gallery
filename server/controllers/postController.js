@@ -26,6 +26,15 @@ module.exports.getMyPosts = async (req, res) => {
 	res.status(200).json({ myPosts: user.posts });
 };
 
+module.exports.getFavoritePosts = async (req, res) => {
+	const user = await User.findById(req.user._id).populate({
+		path: 'favoritePosts',
+		select: { _id: 1, usersFavorited: 1 },
+		options: { sort: { _id: -1 } },
+	});
+	console.log(user.favoritePosts);
+};
+
 module.exports.sendImage = async (req, res) => {
 	const post = await Post.findById({
 		_id: req.params.id,

@@ -10,6 +10,7 @@ import LoginPage from './components/pages/LoginPage/LoginPage.jsx';
 import SignupPage from './components/pages/SignupPage/SignupPage.jsx';
 import UploadPage from './components/pages/UploadPage/UploadPage.jsx';
 import MyPostsPage from './components/pages/MyPostsPage/MyPostsPage.jsx';
+import FavoritesPage from './components/pages/FavoritesPage/FavoritesPage.jsx';
 
 const App = () => {
 	const auth = useSelector((state) => state.auth);
@@ -39,6 +40,7 @@ const App = () => {
 						<Route path='/login' component={LoginPage} />
 						<Route path='/upload' component={UploadPage} />
 						<Route path='/myposts' component={MyPostsPage} />
+						<Route path='/favorites' component={FavoritesPage} />
 					</Switch>
 				</Fragment>
 			)}

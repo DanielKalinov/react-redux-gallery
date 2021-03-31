@@ -7,11 +7,15 @@ import {
 	GET_MY_POSTS_REQUEST,
 	GET_MY_POSTS_SUCCESS,
 	GET_MY_POSTS_FAILURE,
+	GET_FAVORITE_POSTS_SUCCESS,
+	GET_FAVORITE_POSTS_REQUEST,
+	GET_FAVORITE_POSTS_FAILURE,
 } from '../post/postTypes';
 
 const initialState = {
 	allPosts: null,
 	myPosts: null,
+	favoritePosts: null,
 	loading: false,
 	err: null,
 };
@@ -40,6 +44,15 @@ const postReducer = (state = initialState, action) => {
 			return { ...state, myPosts: action.payload, loading: false };
 		}
 		case GET_MY_POSTS_FAILURE: {
+			return { ...state, loading: false };
+		}
+		case GET_FAVORITE_POSTS_REQUEST: {
+			return { ...state, loading: true };
+		}
+		case GET_FAVORITE_POSTS_SUCCESS: {
+			return { ...state, favoritePosts: action.payload, loading: false };
+		}
+		case GET_FAVORITE_POSTS_FAILURE: {
 			return { ...state, loading: false };
 		}
 		default: {

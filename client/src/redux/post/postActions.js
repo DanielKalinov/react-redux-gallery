@@ -7,6 +7,9 @@ import {
 	GET_MY_POSTS_REQUEST,
 	GET_MY_POSTS_SUCCESS,
 	GET_MY_POSTS_FAILURE,
+	GET_FAVORITE_POSTS_REQUEST,
+	GET_FAVORITE_POSTS_SUCCESS,
+	GET_FAVORITE_POSTS_FAILURE,
 } from './postTypes';
 import axios from 'axios';
 
@@ -62,6 +65,20 @@ export const getMyPosts = () => {
 				dispatch(getMyPostsSuccess(myPosts));
 			})
 			.catch(() => dispatch(getMyPostsFailure));
+	};
+};
+
+export const getFavoritePosts = () => {
+	return (dispatch) => {
+		dispatch(getFavoritePostsRequest());
+		axios
+			.get('http://localhost:3000/post/favoriteposts', {
+				headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+			})
+			.then((res) => {
+				const { favoritePosts } = res.data;
+				dispatch(getFavoritePostsSuccess(favoritePosts));
+			});
 	};
 };
 
@@ -128,5 +145,18 @@ export const getMyPostsSuccess = (myPosts) => {
 export const getMyPostsFailure = () => {
 	return {
 		type: GET_MY_POSTS_FAILURE,
+	};
+};
+
+export const getFavoritePostsRequest = () => {
+	return {
+		type: GET_FAVORITE_POSTS_REQUEST,
+	};
+};
+
+export const getFavoritePostsSuccess = (favoritePosts) => {
+	return {
+		type: GET_FAVORITE_POSTS_SUCCESS,
+		payload: favoritePosts,
 	};
 };

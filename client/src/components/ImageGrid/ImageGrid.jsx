@@ -3,6 +3,7 @@ import './ImageGrid.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { getAllPosts } from '../../redux/post/postActions';
 import { getMyPosts } from '../../redux/post/postActions';
+import { getFavoritePosts } from '../../redux/post/postActions';
 import ImageGridItem from '../ImageGridItem/ImageGridItem.jsx';
 
 const ImageGrid = (props) => {
@@ -15,6 +16,8 @@ const ImageGrid = (props) => {
 			dispatch(getAllPosts());
 		} else if (props.postsType === 'myPosts') {
 			dispatch(getMyPosts());
+		} else if (props.postsType === 'favoritePosts') {
+			dispatch(getFavoritePosts());
 		}
 	}, [dispatch, props.postsType]);
 

@@ -4,6 +4,7 @@ const {
 	upload,
 	getAllPosts,
 	getMyPosts,
+	getFavoritePosts,
 	sendImage,
 	favoritePost,
 } = require('../controllers/postController');
@@ -21,6 +22,11 @@ router.get(
 	'/post/myposts',
 	passport.authenticate('jwt', { session: false }),
 	getMyPosts
+);
+router.get(
+	'/post/favoriteposts',
+	passport.authenticate('jwt', { session: false }),
+	getFavoritePosts
 );
 router.get('/post/:id', sendImage);
 router.put(
