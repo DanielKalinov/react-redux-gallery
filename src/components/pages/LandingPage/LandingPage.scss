@@ -1,0 +1,17 @@
+.home {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100vh;
+
+	h1 {
+		margin-bottom: 10px;
+	}
+	h3 {
+		margin-bottom: 20px;
+	}
+
+	.primary-button {
+		margin-right: 10px;
+	}
+}
