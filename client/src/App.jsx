@@ -24,9 +24,9 @@ const App = () => {
 				<Fragment>
 					<Header />
 					<div className='header-offset' style={{ height: '59px' }}></div>
-					<Router />
 				</Fragment>
 			)}
+			<Router />
 		</div>
 	);
 };

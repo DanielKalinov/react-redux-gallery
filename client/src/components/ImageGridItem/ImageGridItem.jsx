@@ -35,20 +35,25 @@ const ImageGridItem = (props) => {
 		<div className='image-grid-item' onClick={handleImageClick}>
 			<img src={`http://localhost:3000/post/${props.post._id}`} alt='' />
 			<div className='image-grid-item-overlay'>
-				<i
-					className='material-icons favorite-btn-border'
-					onClick={handleFavoriteClick}>
-					favorite_border
+				{props.post.author !== auth.userData.username ? (
 					<i
-						className={`material-icons favorite-btn-filled ${
-							isFavorite ? 'visible' : 'hidden'
-						}`}>
-						favorite
+						className='material-icons favorite-btn-border'
+						onClick={handleFavoriteClick}>
+						favorite_border
+						<i
+							className={`material-icons favorite-btn-filled ${
+								isFavorite ? 'visible' : 'hidden'
+							}`}>
+							favorite
+						</i>
 					</i>
-				</i>
-				<i className='material-icons delete-button' onClick={handleDeleteClick}>
-					delete
-				</i>
+				) : (
+					<i
+						className='material-icons delete-button'
+						onClick={handleDeleteClick}>
+						delete
+					</i>
+				)}
 			</div>
 		</div>
 	);

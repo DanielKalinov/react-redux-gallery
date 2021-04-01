@@ -4,7 +4,10 @@ const path = require('path');
 const fs = require('fs');
 
 module.exports.upload = async (req, res) => {
-	const newPost = await Post.create({ src: req.file.path });
+	const newPost = await Post.create({
+		src: req.file.path,
+		author: req.user.username
+	});
 	await User.findByIdAndUpdate(
 		{ _id: req.user._id },
 		{ $push: { myPosts: newPost._id } }
