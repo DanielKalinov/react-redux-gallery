@@ -1,6 +1,7 @@
 const Post = require('../models/post');
 const User = require('../models/user');
 const path = require('path');
+const fs = require('fs');
 
 module.exports.upload = async (req, res) => {
 	const newPost = await Post.create({ src: req.file.path });
@@ -78,6 +79,14 @@ module.exports.favoritePost = async (req, res) => {
 module.exports.deletePost = async (req, res) => {
 	const userId = req.user._id;
 	const postId = req.params.id;
+
+	const post = await Post.findById(postId);
+
+	fs.unlink(path.join(__dirname, `../${post.src}`), (err) => {
+		if (err) {
+			console.log(err);
+		}
+	});
 
 	await User.findByIdAndUpdate({ _id: userId }, { $pull: { myPosts: postId } });
 	await Post.findByIdAndDelete(postId);
