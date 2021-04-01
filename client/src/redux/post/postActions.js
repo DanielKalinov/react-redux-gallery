@@ -6,10 +6,8 @@ import {
 	GET_ALL_POSTS_SUCCESS,
 	GET_MY_POSTS_REQUEST,
 	GET_MY_POSTS_SUCCESS,
-	GET_MY_POSTS_FAILURE,
 	GET_FAVORITE_POSTS_REQUEST,
-	GET_FAVORITE_POSTS_SUCCESS,
-	GET_FAVORITE_POSTS_FAILURE,
+	GET_FAVORITE_POSTS_SUCCESS
 } from './postTypes';
 import axios from 'axios';
 
@@ -23,8 +21,8 @@ export const postUpload = (image) => {
 			const options = {
 				headers: {
 					'Content-Type': 'multipart/form-data',
-					Authorization: `Bearer ${localStorage.getItem('token')}`,
-				},
+					Authorization: `Bearer ${localStorage.getItem('token')}`
+				}
 			};
 
 			axios
@@ -57,14 +55,13 @@ export const getMyPosts = () => {
 		axios
 			.get('http://localhost:3000/post/myposts', {
 				headers: {
-					Authorization: `Bearer ${localStorage.getItem('token')}`,
-				},
+					Authorization: `Bearer ${localStorage.getItem('token')}`
+				}
 			})
 			.then((res) => {
 				const { myPosts } = res.data;
 				dispatch(getMyPostsSuccess(myPosts));
-			})
-			.catch(() => dispatch(getMyPostsFailure));
+			});
 	};
 };
 
@@ -73,7 +70,7 @@ export const getFavoritePosts = () => {
 		dispatch(getFavoritePostsRequest());
 		axios
 			.get('http://localhost:3000/post/favoriteposts', {
-				headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+				headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
 			})
 			.then((res) => {
 				const { favoritePosts } = res.data;
@@ -89,8 +86,8 @@ export const favoritePost = (id) => {
 			{},
 			{
 				headers: {
-					Authorization: `Bearer ${localStorage.getItem('token')}`,
-				},
+					Authorization: `Bearer ${localStorage.getItem('token')}`
+				}
 			}
 		);
 	};
@@ -98,65 +95,59 @@ export const favoritePost = (id) => {
 
 export const postUploadRequest = () => {
 	return {
-		type: POST_UPLOAD_REQUEST,
+		type: POST_UPLOAD_REQUEST
 	};
 };
 
 export const postUploadSuccess = (userPosts) => {
 	return {
 		type: POST_UPLOAD_SUCCESS,
-		payload: userPosts,
+		payload: userPosts
 	};
 };
 
 export const postUploadFailure = (err) => {
 	return {
 		type: POST_UPLOAD_FAILURE,
-		payload: err,
+		payload: err
 	};
 };
 
 export const getAllPostsRequest = () => {
 	return {
-		type: GET_ALL_POSTS_REQUEST,
+		type: GET_ALL_POSTS_REQUEST
 	};
 };
 
 export const getAllPostsSuccess = (allPosts) => {
 	return {
 		type: GET_ALL_POSTS_SUCCESS,
-		payload: allPosts,
+		payload: allPosts
 	};
 };
 
 export const getMyPostsRequest = () => {
 	return {
-		type: GET_MY_POSTS_REQUEST,
+		type: GET_MY_POSTS_REQUEST
 	};
 };
 
 export const getMyPostsSuccess = (myPosts) => {
 	return {
 		type: GET_MY_POSTS_SUCCESS,
-		payload: myPosts,
-	};
-};
-
-export const getMyPostsFailure = () => {
-	return {
-		type: GET_MY_POSTS_FAILURE,
+		payload: myPosts
 	};
 };
 
 export const getFavoritePostsRequest = () => {
 	return {
-		type: GET_FAVORITE_POSTS_REQUEST,
+		type: GET_FAVORITE_POSTS_REQUEST
 	};
 };
 
 export const getFavoritePostsSuccess = (favoritePosts) => {
 	return {
 		type: GET_FAVORITE_POSTS_SUCCESS,
-		payload: favoritePosts,
+		payload: favoritePosts
 	};
 };
