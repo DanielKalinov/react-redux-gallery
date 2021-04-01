@@ -1,13 +1,12 @@
 const Post = require('../models/post');
 const User = require('../models/user');
 const path = require('path');
-const mongoose = require('mongoose');
 
 module.exports.upload = async (req, res) => {
 	const newPost = await Post.create({ src: req.file.path });
 	await User.findByIdAndUpdate(
 		{ _id: req.user._id },
-		{ $push: { posts: newPost._id } }
+		{ $push: { myPosts: newPost._id } }
 	);
 	res.sendStatus(200);
 };
@@ -19,11 +18,12 @@ module.exports.getAllPosts = async (req, res) => {
 
 module.exports.getMyPosts = async (req, res) => {
 	const user = await User.findById(req.user._id).populate({
-		path: 'posts',
+		path: 'myPosts',
 		select: { _id: 1, usersFavorited: 1 },
 		options: { sort: { _id: -1 } }
 	});
-	res.status(200).json({ myPosts: user.posts });
+
+	res.status(200).json({ myPosts: user.myPosts });
 };
 
 module.exports.getFavoritePosts = async (req, res) => {
@@ -73,4 +73,21 @@ module.exports.favoritePost = async (req, res) => {
 	}
 
 	res.sendStatus(200);
+};
+
+module.exports.deletePost = async (req, res) => {
+	const userId = req.user._id;
+	const postId = req.params.id;
+
+	await User.findByIdAndUpdate({ _id: userId }, { $pull: { myPosts: postId } });
+	await Post.findByIdAndDelete(postId);
+
+	const allPosts = await Post.find({}, { src: 0, __v: 0 }).sort({ _id: -1 });
+	const user = await User.findById(req.user._id).populate({
+		path: 'myPosts',
+		select: { _id: 1, usersFavorited: 1 },
+		options: { sort: { _id: -1 } }
+	});
+
+	res.status(200).json({ allPosts, myPosts: user.myPosts });
 };

@@ -7,6 +7,7 @@ const {
 	getFavoritePosts,
 	sendImage,
 	favoritePost,
+	deletePost
 } = require('../controllers/postController');
 const uploadFile = require('../config/multer');
 
@@ -18,21 +19,30 @@ router.post(
 	upload
 );
 router.get('/post/allposts', getAllPosts);
+
 router.get(
 	'/post/myposts',
 	passport.authenticate('jwt', { session: false }),
 	getMyPosts
 );
+
 router.get(
 	'/post/favoriteposts',
 	passport.authenticate('jwt', { session: false }),
 	getFavoritePosts
 );
 router.get('/post/:id', sendImage);
+
 router.put(
 	'/post/favoritepost/:id',
 	passport.authenticate('jwt', { session: false }),
 	favoritePost
+);
+
+router.delete(
+	'/post/deletepost/:id',
+	passport.authenticate('jwt', { session: false }),
+	deletePost
 );
 
 module.exports = router;

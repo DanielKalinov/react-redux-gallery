@@ -4,18 +4,18 @@ const userSchema = new mongoose.Schema({
 	email: String,
 	username: String,
 	password: String,
-	posts: [
+	myPosts: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Post',
-		},
+			ref: 'Post'
+		}
 	],
 	favoritePosts: [
 		{
 			type: mongoose.Schema.Types.ObjectId,
-			ref: 'Post',
-		},
-	],
+			ref: 'Post'
+		}
+	]
 });
 
 const User = mongoose.model('User', userSchema);

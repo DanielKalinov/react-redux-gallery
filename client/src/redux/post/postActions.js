@@ -7,7 +7,8 @@ import {
 	GET_MY_POSTS_REQUEST,
 	GET_MY_POSTS_SUCCESS,
 	GET_FAVORITE_POSTS_REQUEST,
-	GET_FAVORITE_POSTS_SUCCESS
+	GET_FAVORITE_POSTS_SUCCESS,
+	DELETE_POST_SUCCESS
 } from './postTypes';
 import axios from 'axios';
 
@@ -149,5 +150,28 @@ export const getFavoritePostsSuccess = (favoritePosts) => {
 	return {
 		type: GET_FAVORITE_POSTS_SUCCESS,
 		payload: favoritePosts
+	};
+};
+
+export const deletePost = (id) => {
+	return (dispatch) => {
+		axios
+			.delete(`http://localhost:3000/post/deletepost/${id}`, {
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('token')}`
+				}
+			})
+			.then((res) => {
+				const { allPosts, myPosts } = res.data;
+
+				dispatch(deletePostSuccess(allPosts, myPosts));
+			});
+	};
+};
+
+export const deletePostSuccess = (allPosts, myPosts) => {
+	return {
+		type: DELETE_POST_SUCCESS,
+		payload: { allPosts, myPosts }
 	};
 };

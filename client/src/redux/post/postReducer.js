@@ -7,7 +7,8 @@ import {
 	GET_MY_POSTS_REQUEST,
 	GET_MY_POSTS_SUCCESS,
 	GET_FAVORITE_POSTS_SUCCESS,
-	GET_FAVORITE_POSTS_REQUEST
+	GET_FAVORITE_POSTS_REQUEST,
+	DELETE_POST_SUCCESS
 } from '../post/postTypes';
 
 const initialState = {
@@ -46,6 +47,15 @@ const postReducer = (state = initialState, action) => {
 		}
 		case GET_FAVORITE_POSTS_SUCCESS: {
 			return { ...state, favoritePosts: action.payload, loading: false };
+		}
+		case DELETE_POST_SUCCESS: {
+			const { allPosts, myPosts } = action.payload;
+
+			return {
+				...state,
+				allPosts,
+				myPosts
+			};
 		}
 		default: {
 			return state;

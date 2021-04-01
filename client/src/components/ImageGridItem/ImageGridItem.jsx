@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './ImageGridItem.scss';
 import { useSelector, useDispatch } from 'react-redux';
-import { favoritePost } from '../../redux/post/postActions';
+import { favoritePost, deletePost } from '../../redux/post/postActions';
 
 const ImageGridItem = (props) => {
 	const auth = useSelector((state) => state.auth);
@@ -27,6 +27,10 @@ const ImageGridItem = (props) => {
 		dispatch(favoritePost(props.post._id));
 	};
 
+	const handleDeleteClick = () => {
+		dispatch(deletePost(props.post._id));
+	};
+
 	return (
 		<div className='image-grid-item' onClick={handleImageClick}>
 			<img src={`http://localhost:3000/post/${props.post._id}`} alt='' />
@@ -41,6 +45,9 @@ const ImageGridItem = (props) => {
 						}`}>
 						favorite
 					</i>
+				</i>
+				<i className='material-icons delete-button' onClick={handleDeleteClick}>
+					delete
 				</i>
 			</div>
 		</div>
