@@ -30,7 +30,7 @@ const postReducer = (state = initialState, action) => {
 			return { ...state, loading: false, err: action.payload };
 		}
 		case GET_ALL_POSTS_REQUEST: {
-			return { ...state, allPosts: action.payload, loading: true };
+			return { ...state, loading: true };
 		}
 		case GET_ALL_POSTS_SUCCESS: {
 			return { ...state, allPosts: action.payload, loading: false };

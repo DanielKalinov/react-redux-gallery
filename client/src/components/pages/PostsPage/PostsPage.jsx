@@ -7,6 +7,7 @@ import {
 	getFavoritePosts
 } from '../../../redux/post/postActions';
 import ImageGrid from '../../ImageGrid/ImageGrid.jsx';
+import NoPostsMessage from '../../NoPostsMessage/NoPostsMessage.jsx';
 
 const PostsPage = (props) => {
 	const dispatch = useDispatch();
@@ -29,7 +30,11 @@ const PostsPage = (props) => {
 					<div className='spinner'></div>
 				</div>
 			)}
-			<ImageGrid postsType={props.postsType} />
+			{post[props.postsType].length > 0 ? (
+				<ImageGrid postsType={props.postsType} />
+			) : (
+				!post.loading && <NoPostsMessage postsType={props.postsType} />
+			)}
 		</div>
 	);
 };
