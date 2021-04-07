@@ -23,7 +23,7 @@ const HomePage = (props) => {
 		} else if (props.postsType === 'favoritePosts') {
 			dispatch(getFavoritePosts());
 		}
-	}, [props.postsType, dispatch]);
+	}, []);
 
 	return (
 		<div className='home-page'>

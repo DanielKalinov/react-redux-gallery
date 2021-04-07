@@ -35,6 +35,7 @@ const ImageGridItem = (props) => {
 		<div className='image-grid-item' onClick={handleImageClick}>
 			<img src={`http://localhost:3000/post/${props.post._id}`} alt='' />
 			<div className='image-grid-item-overlay'>
+				<h3>{props.post.author}</h3>
 				{auth.userData && props.post.author !== auth.userData.username ? (
 					<i
 						className='material-icons favorite-btn-border'
