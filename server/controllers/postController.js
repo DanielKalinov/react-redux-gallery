@@ -6,7 +6,8 @@ const fs = require('fs');
 module.exports.upload = async (req, res) => {
 	const newPost = await Post.create({
 		src: req.file.path,
-		author: req.user.username
+		author: req.user.username,
+		date: new Date()
 	});
 	await User.findByIdAndUpdate(
 		{ _id: req.user._id },
@@ -16,15 +17,15 @@ module.exports.upload = async (req, res) => {
 };
 
 module.exports.getAllPosts = async (req, res) => {
-	const allPosts = await Post.find({}, { src: 0, __v: 0 }).sort({ _id: -1 });
+	const allPosts = await Post.find({}, { src: 0, __v: 0 }).sort({ date: -1 });
 	res.status(200).json({ allPosts });
 };
 
 module.exports.getMyPosts = async (req, res) => {
 	const user = await User.findById(req.user._id).populate({
 		path: 'myPosts',
-		select: { _id: 1, usersFavorited: 1, author: 1 },
-		options: { sort: { _id: -1 } }
+		select: { _id: 1, author: 1, usersFavorited: 1, date: 1 },
+		options: { sort: { date: -1 } }
 	});
 
 	res.status(200).json({ myPosts: user.myPosts });
@@ -33,8 +34,8 @@ module.exports.getMyPosts = async (req, res) => {
 module.exports.getFavoritePosts = async (req, res) => {
 	const user = await User.findById(req.user._id).populate({
 		path: 'favoritePosts',
-		select: { _id: 1, usersFavorited: 1 },
-		options: { sort: { _id: -1 } }
+		select: { _id: 1, author: 1, usersFavorited: 1, date: 1 },
+		options: { sort: { date: -1 } }
 	});
 
 	res.status(200).send({ favoritePosts: user.favoritePosts });
@@ -78,8 +79,8 @@ module.exports.favoritePost = async (req, res) => {
 
 	user = await User.findById(userId).populate({
 		path: 'favoritePosts',
-		select: { _id: 1, usersFavorited: 1 },
-		options: { sort: { _id: -1 } }
+		select: { _id: 1, author: 1, usersFavorited: 1, date: 1 },
+		options: { sort: { date: -1 } }
 	});
 	const allPosts = await Post.find();
 	res.status(200).json({ allPosts, favoritePosts: user.favoritePosts });
@@ -100,11 +101,11 @@ module.exports.deletePost = async (req, res) => {
 	await User.findByIdAndUpdate({ _id: userId }, { $pull: { myPosts: postId } });
 	await Post.findByIdAndDelete(postId);
 
-	const allPosts = await Post.find({}, { src: 0, __v: 0 }).sort({ _id: -1 });
+	const allPosts = await Post.find({}, { src: 0, __v: 0 }).sort({ date: -1 });
 	const user = await User.findById(req.user._id).populate({
 		path: 'myPosts',
-		select: { _id: 1, usersFavorited: 1 },
-		options: { sort: { _id: -1 } }
+		select: { _id: 1, author: 1, usersFavorited: 1, date: 1 },
+		options: { sort: { date: -1 } }
 	});
 
 	res.status(200).json({ allPosts, myPosts: user.myPosts });
