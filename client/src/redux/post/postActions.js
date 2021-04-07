@@ -1,16 +1,96 @@
 import {
-	POST_UPLOAD_REQUEST,
-	POST_UPLOAD_SUCCESS,
-	POST_UPLOAD_FAILURE,
 	GET_ALL_POSTS_REQUEST,
 	GET_ALL_POSTS_SUCCESS,
 	GET_MY_POSTS_REQUEST,
 	GET_MY_POSTS_SUCCESS,
 	GET_FAVORITE_POSTS_REQUEST,
 	GET_FAVORITE_POSTS_SUCCESS,
+	POST_UPLOAD_REQUEST,
+	POST_UPLOAD_SUCCESS,
+	POST_UPLOAD_FAILURE,
+	FAVORITE_POST_SUCCESS,
 	DELETE_POST_SUCCESS
 } from './postTypes';
 import axios from 'axios';
+
+export const getAllPosts = () => {
+	return (dispatch) => {
+		dispatch(getAllPostsRequest());
+		axios.get('http://localhost:3000/post/allposts').then((res) => {
+			const { allPosts } = res.data;
+			dispatch(getAllPostsSuccess(allPosts));
+		});
+	};
+};
+
+export const getAllPostsRequest = () => {
+	return {
+		type: GET_ALL_POSTS_REQUEST
+	};
+};
+
+export const getAllPostsSuccess = (allPosts) => {
+	return {
+		type: GET_ALL_POSTS_SUCCESS,
+		payload: allPosts
+	};
+};
+
+export const getMyPosts = () => {
+	return (dispatch) => {
+		dispatch(getMyPostsRequest());
+		axios
+			.get('http://localhost:3000/post/myposts', {
+				headers: {
+					Authorization: `Bearer ${localStorage.getItem('token')}`
+				}
+			})
+			.then((res) => {
+				const { myPosts } = res.data;
+				dispatch(getMyPostsSuccess(myPosts));
+			});
+	};
+};
+
+export const getMyPostsRequest = () => {
+	return {
+		type: GET_MY_POSTS_REQUEST
+	};
+};
+
+export const getMyPostsSuccess = (myPosts) => {
+	return {
+		type: GET_MY_POSTS_SUCCESS,
+		payload: myPosts
+	};
+};
+
+export const getFavoritePosts = () => {
+	return (dispatch) => {
+		dispatch(getFavoritePostsRequest());
+		axios
+			.get('http://localhost:3000/post/favoriteposts', {
+				headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
+			})
+			.then((res) => {
+				const { favoritePosts } = res.data;
+				dispatch(getFavoritePostsSuccess(favoritePosts));
+			});
+	};
+};
+
+export const getFavoritePostsRequest = () => {
+	return {
+		type: GET_FAVORITE_POSTS_REQUEST
+	};
+};
+
+export const getFavoritePostsSuccess = (favoritePosts) => {
+	return {
+		type: GET_FAVORITE_POSTS_SUCCESS,
+		payload: favoritePosts
+	};
+};
 
 export const postUpload = (image) => {
 	return (dispatch) => {
@@ -40,65 +120,6 @@ export const postUpload = (image) => {
 	};
 };
 
-export const getAllPosts = () => {
-	return (dispatch) => {
-		dispatch(getAllPostsRequest());
-		axios.get('http://localhost:3000/post/allposts').then((res) => {
-			const { allPosts } = res.data;
-			dispatch(getAllPostsSuccess(allPosts));
-		});
-	};
-};
-
-export const getMyPosts = () => {
-	return (dispatch) => {
-		dispatch(getMyPostsRequest());
-		axios
-			.get('http://localhost:3000/post/myposts', {
-				headers: {
-					Authorization: `Bearer ${localStorage.getItem('token')}`
-				}
-			})
-			.then((res) => {
-				const { myPosts } = res.data;
-				dispatch(getMyPostsSuccess(myPosts));
-			});
-	};
-};
-
-export const getFavoritePosts = () => {
-	return (dispatch) => {
-		dispatch(getFavoritePostsRequest());
-		axios
-			.get('http://localhost:3000/post/favoriteposts', {
-				headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-			})
-			.then((res) => {
-				const { favoritePosts } = res.data;
-				dispatch(getFavoritePostsSuccess(favoritePosts));
-			});
-	};
-};
-
-export const favoritePost = (id) => {
-	return (dispatch) => {
-		axios
-			.put(
-				`http://localhost:3000/post/favoritepost/${id}`,
-				{},
-				{
-					headers: {
-						Authorization: `Bearer ${localStorage.getItem('token')}`
-					}
-				}
-			)
-			.then((res) => {
-				dispatch(getFavoritePosts());
-				dispatch(getAllPosts());
-			});
-	};
-};
-
 export const postUploadRequest = () => {
 	return {
 		type: POST_UPLOAD_REQUEST
@@ -119,42 +140,29 @@ export const postUploadFailure = (err) => {
 	};
 };
 
-export const getAllPostsRequest = () => {
-	return {
-		type: GET_ALL_POSTS_REQUEST
+export const favoritePost = (id) => {
+	return (dispatch) => {
+		axios
+			.put(
+				`http://localhost:3000/post/favoritepost/${id}`,
+				{},
+				{
+					headers: {
+						Authorization: `Bearer ${localStorage.getItem('token')}`
+					}
+				}
+			)
+			.then((res) => {
+				const { allPosts, favoritePosts } = res.data;
+				dispatch(favoritePostSuccess(allPosts, favoritePosts));
+			});
 	};
 };
 
-export const getAllPostsSuccess = (allPosts) => {
+export const favoritePostSuccess = (allPosts, favoritePosts) => {
 	return {
-		type: GET_ALL_POSTS_SUCCESS,
-		payload: allPosts
-	};
-};
-
-export const getMyPostsRequest = () => {
-	return {
-		type: GET_MY_POSTS_REQUEST
-	};
-};
-
-export const getMyPostsSuccess = (myPosts) => {
-	return {
-		type: GET_MY_POSTS_SUCCESS,
-		payload: myPosts
-	};
-};
-
-export const getFavoritePostsRequest = () => {
-	return {
-		type: GET_FAVORITE_POSTS_REQUEST
-	};
-};
-
-export const getFavoritePostsSuccess = (favoritePosts) => {
-	return {
-		type: GET_FAVORITE_POSTS_SUCCESS,
-		payload: favoritePosts
+		type: FAVORITE_POST_SUCCESS,
+		payload: { allPosts, favoritePosts }
 	};
 };
 

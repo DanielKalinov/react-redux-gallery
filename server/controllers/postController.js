@@ -51,7 +51,7 @@ module.exports.favoritePost = async (req, res) => {
 	const userId = req.user._id;
 	const postId = req.params.id;
 
-	const user = await User.findById(userId);
+	let user = await User.findById(userId);
 
 	const postIsFavorite = user.favoritePosts.includes(postId);
 	if (postIsFavorite) {
@@ -76,7 +76,13 @@ module.exports.favoritePost = async (req, res) => {
 		);
 	}
 
-	res.sendStatus(200);
+	user = await User.findById(userId).populate({
+		path: 'favoritePosts',
+		select: { _id: 1, usersFavorited: 1 },
+		options: { sort: { _id: -1 } }
+	});
+	const allPosts = await Post.find();
+	res.status(200).json({ allPosts, favoritePosts: user.favoritePosts });
 };
 
 module.exports.deletePost = async (req, res) => {
