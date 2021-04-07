@@ -27,11 +27,23 @@ const ImageGrid = (props) => {
 		));
 	};
 
+	const formatDate = () => {
+		const date = new Date(activePost.date);
+		return date.toDateString();
+	};
+
 	return (
 		<div className='image-grid'>
 			{activePost && (
 				<div className='active-post-overlay' onClick={handleOverlayClick}>
 					<div className='active-post'>
+						<div className='active-post-header'>
+							<div className='active-post-header-author-info'>
+								<i className='material-icons'>account_circle</i>
+								<h3>{activePost.author}</h3>
+							</div>
+							<span>{formatDate()}</span>
+						</div>
 						<img src={`http://localhost:3000/post/${activePost._id}`} alt='' />
 					</div>
 				</div>

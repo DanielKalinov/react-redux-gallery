@@ -19,9 +19,32 @@
 	backdrop-filter: blur(20px);
 
 	.active-post {
+		border-radius: 6px;
+		padding: 10px;
+		background-color: #fafafa;
+
+		.active-post-header {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-bottom: 10px;
+
+			.active-post-header-author-info {
+				display: flex;
+				align-items: center;
+
+				i {
+					margin-right: 6px;
+					font-size: 36px;
+				}
+			}
+		}
+
 		img {
 			display: block;
-			height: 600px;
+			height: 800px;
+			width: 800px;
+			object-fit: scale-down;
 		}
 	}
 }
