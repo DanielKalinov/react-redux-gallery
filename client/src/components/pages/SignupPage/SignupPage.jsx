@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { signUp } from '../../../redux/auth/authActions';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 
 const Signup = () => {
@@ -13,14 +13,14 @@ const Signup = () => {
 
 	const initialValues = {
 		email: '',
-		password: '',
+		password: ''
 	};
 
 	const validationSchema = Yup.object({
 		email: Yup.string().email('Invalid email address').required('Required'),
 		password: Yup.string()
 			.min(8, 'Password must be at least 8 characters long')
-			.required('Required'),
+			.required('Required')
 	});
 
 	const onSubmit = (values, onSubmitProps) => {

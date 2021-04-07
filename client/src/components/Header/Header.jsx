@@ -3,7 +3,7 @@ import './Header.scss';
 import { NavLink } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { logOut } from '../../redux/auth/authActions';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 
 const Header = () => {
 	const auth = useSelector((state) => state.auth);
@@ -11,14 +11,16 @@ const Header = () => {
 	const history = useHistory();
 
 	const onLogout = () => {
-		dispatch(logOut()).then(() => history.replace('/'));
+		dispatch(logOut()).then(() => {
+			history.replace('/');
+		});
 	};
 
 	return (
 		<div className='header'>
 			<div className='header-container'>
 				<div className='header-left'>
-					<NavLink activeClassName='header-left-active' exact to='/home'>
+					<NavLink activeClassName='header-left-active' exact to='/'>
 						Home
 					</NavLink>
 					<NavLink activeClassName='header-left-active' exact to='/upload'>

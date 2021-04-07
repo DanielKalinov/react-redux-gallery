@@ -23,7 +23,7 @@ module.exports.getAllPosts = async (req, res) => {
 module.exports.getMyPosts = async (req, res) => {
 	const user = await User.findById(req.user._id).populate({
 		path: 'myPosts',
-		select: { _id: 1, usersFavorited: 1 },
+		select: { _id: 1, usersFavorited: 1, author: 1 },
 		options: { sort: { _id: -1 } }
 	});
 

@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import './UploadPage.scss';
 import { useSelector, useDispatch } from 'react-redux';
 import { postUpload } from '../../../redux/post/postActions';
-import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router';
 
 const UploadPage = () => {
 	const [image, setImage] = useState('');
