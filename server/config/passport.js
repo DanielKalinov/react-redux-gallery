@@ -6,12 +6,12 @@ const bcrypt = require('bcrypt');
 
 const options = {
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-	secretOrKey: 'secret',
+	secretOrKey: 'secret'
 };
 
 const localStrategy = new LocalStrategy(
 	{
-		usernameField: 'email',
+		usernameField: 'email'
 	},
 	async (email, password, done) => {
 		try {
@@ -34,7 +34,7 @@ const localStrategy = new LocalStrategy(
 
 const jwtStrategy = new JwtStrategy(options, async (payload, done) => {
 	try {
-		const user = await User.findOne({ _id: payload.userId });
+		const user = await User.findOne({ _id: payload.id });
 		if (user) {
 			done(null, user);
 		} else {

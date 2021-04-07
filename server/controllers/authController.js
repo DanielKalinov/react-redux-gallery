@@ -17,7 +17,7 @@ module.exports.signUp = async (req, res) => {
 			await User.create({
 				email,
 				username,
-				password: hashedPassword,
+				password: hashedPassword
 			});
 
 			res.sendStatus(201);
@@ -29,10 +29,10 @@ module.exports.signUp = async (req, res) => {
 
 module.exports.logIn = (req, res) => {
 	const { user } = req;
-	const userData = { userId: user._id, username: user.username };
+	const userData = { id: user._id, username: user.username };
 	const token = jwt.sign(
 		{
-			userId: user._id,
+			id: user._id
 		},
 		'secret'
 	);
