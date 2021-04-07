@@ -21,7 +21,7 @@ const PostsPage = (props) => {
 		} else if (props.postsType === 'favoritePosts') {
 			dispatch(getFavoritePosts());
 		}
-	}, [props.postsType, dispatch]);
+	}, [dispatch, props.postsType]);
 
 	return (
 		<div className='posts-page'>

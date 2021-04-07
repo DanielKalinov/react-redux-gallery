@@ -9,12 +9,12 @@ const ImageGridItem = (props) => {
 	const dispatch = useDispatch();
 
 	useEffect(() => {
-		if (props.post.usersFavorited.includes(auth.userData.id)) {
+		if (auth.userData && props.post.usersFavorited.includes(auth.userData.id)) {
 			setIsFavorite(true);
 		} else {
 			setIsFavorite(false);
 		}
-	}, [auth.userData.id, props.post.usersFavorited]);
+	}, []);
 
 	const handleImageClick = (e) => {
 		if (e.target.tagName !== 'I') {
@@ -35,7 +35,7 @@ const ImageGridItem = (props) => {
 		<div className='image-grid-item' onClick={handleImageClick}>
 			<img src={`http://localhost:3000/post/${props.post._id}`} alt='' />
 			<div className='image-grid-item-overlay'>
-				{props.post.author !== auth.userData.username ? (
+				{auth.userData && props.post.author !== auth.userData.username ? (
 					<i
 						className='material-icons favorite-btn-border'
 						onClick={handleFavoriteClick}>

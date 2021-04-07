@@ -24,7 +24,7 @@ const Signup = () => {
 	});
 
 	const onSubmit = (values, onSubmitProps) => {
-		dispatch(signUp(values)).then(() => history.replace('/'));
+		dispatch(signUp(values)).then(() => history.replace('/login'));
 		onSubmitProps.resetForm();
 	};
 

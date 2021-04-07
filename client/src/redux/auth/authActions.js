@@ -66,9 +66,9 @@ export const logOut = () => {
 			axios
 				.post('http://localhost:3000/logout')
 				.then(() => {
+					resolve();
 					localStorage.removeItem('token');
 					dispatch(logoutSuccess());
-					resolve();
 				})
 				.catch((err) => console.log(err));
 		});

@@ -20,7 +20,7 @@ const Router = () => {
 			<Route
 				exact
 				path='/myposts'
-				render={(props) => <PostsPage {...props} postsType='myPosts' />}
+				component={(props) => <PostsPage {...props} postsType='myPosts' />}
 			/>
 			<Route
 				exact
